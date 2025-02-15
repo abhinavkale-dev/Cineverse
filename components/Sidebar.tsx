@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const Sidebar = () => {
+
   return (
     <div className="w-[20%] h-full border-r-2 border-zinc-500 p-10 flex flex-col">
         <h1 className="text-2xl font-bold">
