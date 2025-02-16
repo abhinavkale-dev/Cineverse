@@ -18,28 +18,28 @@ const Topbar = ({ onMenuClick }: TopbarProps) => {
     const [search, setSearch] = useState<TMDBSearchResult[] | null>([])
 
 
-    const getSearch = async() => {
-        if (!query.trim()) {
-            setSearch([]); 
-            return;
-        }
-        
-        try {
-           const { data } = await axios.get<TMDBSearchResponse>(`/search/multi?query=${query}&language=en-US`);
-           setSearch(data.results);
-        } catch (error) {
-            console.error("Search error:", error);
-            setSearch([]);
-        }
-    }
-
     useEffect(() => {
+        const getSearch = async() => {
+            if (!query.trim()) {
+                setSearch([]); 
+                return;
+            }
+            
+            try {
+               const { data } = await axios.get<TMDBSearchResponse>(`/search/multi?query=${query}&language=en-US`);
+               setSearch(data.results);
+            } catch (error) {
+                console.error("Search error:", error);
+                setSearch([]);
+            }
+        };
+
         const timeoutId = setTimeout(() => {
             getSearch();
         }, 500);
 
         return () => clearTimeout(timeoutId);
-    }, [query, getSearch])
+    }, [query])
 
     //Keyboard Shortcut
     useEffect(() => {
