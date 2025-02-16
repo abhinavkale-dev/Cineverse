@@ -1,12 +1,14 @@
 "use client"
 
-import { ChangeEvent, useState, useEffect, useRef } from 'react'
+import { ChangeEvent, useState, useEffect, useRef, useCallback } from 'react'
 import { Input } from '@/components/ui/input'
 import axios from '@/utils/axios'
 import Link from 'next/link'
 import Image from 'next/image'
 import { TMDBSearchResult, TMDBSearchResponse } from '@/types/tmdb'
 import noimage from '@/public/noimage.jpeg'
+import { ShinyButton } from '@/components/magicui/shiny-button'
+import { Star } from 'lucide-react'
 
 interface TopbarProps {
   onMenuClick: () => void;
@@ -18,28 +20,28 @@ const Topbar = ({ onMenuClick }: TopbarProps) => {
     const [search, setSearch] = useState<TMDBSearchResult[] | null>([])
 
 
-    useEffect(() => {
-        const getSearch = async() => {
-            if (!query.trim()) {
-                setSearch([]); 
-                return;
-            }
-            
-            try {
-               const { data } = await axios.get<TMDBSearchResponse>(`/search/multi?query=${query}&language=en-US`);
-               setSearch(data.results);
-            } catch (error) {
-                console.error("Search error:", error);
-                setSearch([]);
-            }
-        };
+    const getSearch = useCallback(async() => {
+        if (!query.trim()) {
+            setSearch([]); 
+            return;
+        }
+        
+        try {
+           const { data } = await axios.get<TMDBSearchResponse>(`/search/multi?query=${query}&language=en-US`);
+           setSearch(data.results);
+        } catch (error) {
+            console.error("Search error:", error);
+            setSearch([]);
+        }
+    }, [query])
 
+    useEffect(() => {
         const timeoutId = setTimeout(() => {
             getSearch();
         }, 500);
 
         return () => clearTimeout(timeoutId);
-    }, [query])
+    }, [getSearch])
 
     //Keyboard Shortcut
     useEffect(() => {
@@ -54,9 +56,10 @@ const Topbar = ({ onMenuClick }: TopbarProps) => {
         return () => document.removeEventListener('keydown', handleKeyPress)
     }, [])
   return (
-      <div className="w-full h-[10vh] flex items-center justify-center relative">
-        <i onClick={onMenuClick} className="ri-menu-line text-2xl text-white absolute left-4 cursor-pointer lg:hidden hover:text-[#6556CD] transition-colors duration-300"></i>
-        <div className="relative lg:w-[600px] w-[70%]">
+      <div className="w-full h-[10vh] flex items-center justify-between relative px-4 lg:px-8">
+        <i onClick={onMenuClick} className="ri-menu-line text-2xl text-white cursor-pointer lg:hidden hover:text-[#6556CD] transition-colors duration-300"></i>
+        <div className="relative lg:w-[600px] w-[60%] mx-auto">
+
           <div className="relative flex items-center">
             <i className="absolute lg:left-4 left-2.5 text-zinc-500 lg:text-lg text-sm ri-search-2-line"></i>
             <Input 
@@ -77,6 +80,17 @@ const Topbar = ({ onMenuClick }: TopbarProps) => {
               ></i>
             )}
           </div>
+        </div>
+        
+        <div className="hidden lg:block">
+          <Link href="https://github.com/abhinavkale-dev/Cineverse" target="_blank" rel="noopener noreferrer">
+            <ShinyButton>
+              <div className="flex items-center gap-2 whitespace-nowrap">
+                <span className="text-sm">Star on GitHub</span>
+                <Star className="h-4 w-4 flex-shrink-0" />
+              </div>
+            </ShinyButton>
+          </Link>
         </div>
 
         {query.trim() && search && search.length > 0 && (
