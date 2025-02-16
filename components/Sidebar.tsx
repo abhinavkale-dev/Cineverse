@@ -1,10 +1,15 @@
 import Link from 'next/link'
-import React, { useEffect } from 'react'
 
-const Sidebar = () => {
+interface SidebarProps {
+  isOpen: boolean;
+  setIsOpen: (isOpen: boolean) => void;
+}
+
+const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
 
   return (
-    <div className="w-[20%] h-full border-r-2 border-zinc-500 p-10 flex flex-col">
+    <div className={`${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 fixed lg:static left-0 top-0 w-[70%] lg:w-[20%] h-full border-r border-zinc-800 p-10 flex flex-col bg-black transition-transform duration-300 ease-in-out z-50`}>
+      <i onClick={() => setIsOpen(false)} className="ri-close-line absolute right-4 top-4 text-2xl cursor-pointer lg:hidden"></i>
         <h1 className="text-2xl font-bold">
         <i className="text-[#6556CD] ri-tv-fill mr-2"></i>
         <span>

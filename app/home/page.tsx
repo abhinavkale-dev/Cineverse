@@ -5,32 +5,30 @@ import Sidebar from '@/components/Sidebar'
 import Topbar from '@/components/Topbar'
 import { TMDBSearchResponse } from '@/types/tmdb'
 import axios from '@/utils/axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Home = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [wallpaper, setWallpaper] = useState<TMDBSearchResponse['results']>([])
 
   const getHeaderWallpaper = async() => { 
-
     try {
-       const { data } = await axios.get<TMDBSearchResponse>(`/trending/all/day?language=en-US`);
-       let randomData = data.results[Math.floor(Math.random() * data.results.length)]
-       setWallpaper([randomData])
+      const { data } = await axios.get<TMDBSearchResponse>(`/trending/all/day?language=en-US`);
+
+      setWallpaper(data.results.slice(0, 5));
     } catch (error) {
-        console.log("Search error:", error);
+      console.log("Search error:", error);
     } 
-  } 
+  }
 
   useEffect(() => {
-    if (wallpaper.length === 0) {
-      getHeaderWallpaper()
-    }
+    getHeaderWallpaper()
   }, [])
-    return wallpaper ? (
+    return wallpaper.length > 0 ? (
     <div className="flex h-screen w-full">
-      <Sidebar />
+      <Sidebar isOpen={mobileMenuOpen} setIsOpen={setMobileMenuOpen} />
       <div className="flex-1 flex flex-col">
-        <Topbar />
+        <Topbar onMenuClick={() => setMobileMenuOpen(!mobileMenuOpen)} />
         <Header data={wallpaper}/>
       </div>
     </div>
