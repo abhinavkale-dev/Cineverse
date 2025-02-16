@@ -122,7 +122,7 @@ export const authOptions = {
           
           if (!existingUser) {
             // Create user without password for Google sign-in
-            const newUser = await prisma.user.create({
+            await prisma.user.create({
               data: {
                 email: user.email!,
                 avatar: user.image,

@@ -8,7 +8,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -19,8 +18,12 @@ interface TrendingCardProps {
 
 const TrendingCard = ({ data }: TrendingCardProps) => {
   return (
-    <Link href="" className="block w-full">
-      <Card className="group border-0 bg-black/20 hover:bg-black/40 transition-colors duration-300">
+    <Link 
+      href={`https://www.themoviedb.org/${data.media_type}/${data.id}`}
+      target="_blank" 
+      className="block w-full"
+    >
+      <Card className="group border-0 bg-black/20 hover:bg-black/40 transition-colors duration-300 cursor-pointer">
         <CardContent className="p-3">
           <div className="relative w-full aspect-[2/3] rounded-lg overflow-hidden">
             <Image

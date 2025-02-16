@@ -39,7 +39,7 @@ const Topbar = ({ onMenuClick }: TopbarProps) => {
         }, 500);
 
         return () => clearTimeout(timeoutId);
-    }, [query])
+    }, [query, getSearch])
 
     //Keyboard Shortcut
     useEffect(() => {

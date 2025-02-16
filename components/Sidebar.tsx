@@ -34,7 +34,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
             <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="/profile">
             <i className="mr-2 ri-user-3-fill"></i> Profile
             </Link>
-            <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="">
+            <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="/about">
             <i className="mr-2 ri-information-fill"></i> About
             </Link>
         </nav>

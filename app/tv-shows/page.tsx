@@ -11,6 +11,11 @@ const fetchShows = async ({ pageParam = 1 }) => {
   const { data } = await axios.get<TMDBSearchResponse>(
     `/discover/tv?language=en-US&page=${pageParam}`
   )
+
+  data.results = data.results.map(show => ({
+    ...show,
+    media_type: 'tv'
+  }))
   return data
 }
 

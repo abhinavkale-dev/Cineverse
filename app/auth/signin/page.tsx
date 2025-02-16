@@ -27,7 +27,7 @@ export default function Signin() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -37,14 +37,10 @@ export default function Signin() {
   });
 
   useEffect(() => {
-    if (status === 'authenticated') {
-      toast({
-        title: "Success!",
-        description: "Successfully signed in",
-      });
+    if (status === 'authenticated' && !isSubmitting) {
       router.replace('/home');
     }
-  }, [status, router, toast]);
+  }, [status, router, isSubmitting]);
 
   if (status === 'loading') {
     return null;
@@ -65,17 +61,25 @@ export default function Signin() {
 
       if (result?.error) {
         toast({
-          title: "Signin Failed",
-          description: result.error,
           variant: "destructive",
-        });
-      } else {
-        router.push("/home");
+          title: "Sign in failed",
+          description: result.error,
+        })
+        return
       }
-    } catch (error) {
+      
+      toast({
+        title: "Success",
+        description: "Successfully signed in",
+      })
+      
+      setTimeout(() => {
+        router.push("/home")
+      }, 2000)
+    } catch (err) {
       toast({
         title: "Signin Failed",
-        description: "An unexpected error occurred. Please try again later.",
+        description: `An unexpected error occurred: ${err instanceof Error ? err.message : 'Please try again later'}`,
         variant: "destructive",
       });
     } finally {

@@ -40,11 +40,12 @@ const Header = ({ data }: HeaderProps) => {
             </span>
           </p>
           <Link 
-            href="" 
+            href={`https://www.themoviedb.org/${item?.media_type}/${item?.id}`}
+            target="_blank"
             className="bg-[#6556CD] hover:bg-[#4c3fc9] transition-all duration-300 text-white py-2 px-4 rounded-md w-fit flex items-center gap-2 mt-2 text-sm"
           >
             <i className="ri-play-circle-fill text-xl"></i>
-            Watch Trailer
+            Find More
           </Link>
         </div>
       </div>
