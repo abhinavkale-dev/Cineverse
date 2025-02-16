@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import { Toaster } from "@/components/ui/toaster";
-import { Banner } from "@/components/blocks/banner";
+
 
 
 const geistSans = Geist({
@@ -37,10 +37,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        <Providers>
-          <Banner />
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
         <Toaster />
       </body>
     </html>
