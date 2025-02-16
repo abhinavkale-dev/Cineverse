@@ -19,16 +19,10 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
 
         <nav className="flex flex-col text-zinc-400 text-xl">
             <h1 className="text-white font-semibold text-xl mt-10 mb-5">Feed</h1>
-            <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="">
-            <i className="mr-2 ri-fire-fill"></i> Trending
-            </Link>
-            <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="">
-            <i className="mr-2 ri-bard-fill"></i> Popular
-            </Link>
-            <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="">
+            <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="/movies">
             <i className="mr-2 ri-movie-2-fill"></i> Movies
             </Link>
-            <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="">
+            <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="/tv-shows">
             <i className="mr-2 ri-tv-2-fill"></i> TV Shows
             </Link>
         </nav>
@@ -37,7 +31,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
          
         <nav className="flex flex-col text-zinc-400 text-xl">
             <h1 className="text-white font-semibold text-xl mt-6 mb-5">Menu</h1>
-            <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="">
+            <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="/profile">
             <i className="mr-2 ri-user-3-fill"></i> Profile
             </Link>
             <Link className="hover:bg-[#6556CD] hover:text-white rounded-lg p-5 duration-300" href="">

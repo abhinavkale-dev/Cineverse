@@ -80,7 +80,7 @@ const Topbar = ({ onMenuClick }: TopbarProps) => {
         </div>
 
         {query.trim() && search && search.length > 0 && (
-          <div className="absolute w-full max-h-[70vh] top-full bg-[#1F1E24] mt-2 rounded-lg overflow-auto border-b-3 border-zinc-700 z-50">
+          <div className="absolute w-full max-h-[70vh] top-full bg-[#1F1E24] mt-0 rounded-b-lg overflow-auto border-b-3 border-zinc-700 z-50">
             {search.map((s,i) => (
                 <Link key={i} href="" className="text-zinc-400 font-semibold hover:text-white duration-300 hover:bg-zinc-800 w-full p-10 flex justify-start items-center border-b border-zinc-700 last:border-b-0">
                     <Image 
